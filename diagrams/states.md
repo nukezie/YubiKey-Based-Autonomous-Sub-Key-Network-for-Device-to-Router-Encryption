@@ -98,17 +98,26 @@ stateDiagram-v2
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Default
-    Default --> Editing: Admin Modify
-    Editing --> Validating: Save Changes
-    Validating --> Deploying: Validation Pass
-    Validating --> Failed: Validation Error
-    Failed --> Editing: Retry
-    Deploying --> Active: Deploy Success
-    Deploying --> RollingBack: Deploy Error
-    RollingBack --> Previous: Rollback Success
-    Previous --> Default: Reset
-    Active --> Previous: Version Change
+    state "Default" as s1
+    state "Editing" as s2
+    state "Validating" as s3
+    state "Deploying" as s4
+    state "Failed" as s5
+    state "Active" as s6
+    state "RollingBack" as s7
+    state "Previous" as s8
+
+    [*] --> s1
+    s1 --> s2: Admin Modify
+    s2 --> s3: Save Changes
+    s3 --> s4: Validation Pass
+    s3 --> s5: Validation Error
+    s5 --> s2: Retry
+    s4 --> s6: Deploy Success
+    s4 --> s7: Deploy Error
+    s7 --> s8: Rollback Success
+    s8 --> s1: Reset
+    s6 --> s8: Version Change
 ```
 
 ## Error Handling States
