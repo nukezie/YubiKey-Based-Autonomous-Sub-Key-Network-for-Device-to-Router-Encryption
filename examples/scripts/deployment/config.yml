@@ -1,0 +1,96 @@
+# YubiKey Network Deployment Configuration
+
+# Path Settings
+paths:
+  config_dir: /etc/yubikey-network
+  data_dir: /var/lib/yubikey-network
+  log_dir: /var/log/yubikey-network
+  backup_dir: /var/backups/yubikey-network
+  ssl_dir: /etc/ssl/yubikey-network
+  venv_dir: /opt/yubikey-network/venv
+  config_src: /opt/yubikey-network/config
+
+# Database Settings
+database:
+  host: localhost
+  port: 5432
+  name: yubikey_network
+  user: yubikey_admin
+  password: CHANGE_THIS_PASSWORD  # Change in production
+  max_connections: 100
+
+# Redis Settings
+redis:
+  host: localhost
+  port: 6379
+  bind: 127.0.0.1
+  maxmemory: 1gb
+  maxmemory_policy: allkeys-lru
+  databases: 16
+
+# SSL Settings
+ssl:
+  cert_path: /etc/ssl/certs/yubikey-network.crt
+  key_path: /etc/ssl/private/yubikey-network.key
+  protocols: TLSv1.2 TLSv1.3
+  ciphers: ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256
+
+# YubiKey Settings
+yubikey:
+  pin: CHANGE_THIS_PIN  # Change in production
+  puk: CHANGE_THIS_PUK  # Change in production
+  management_key: 010203040506070801020304050607080102030405060708
+  touch_policy: always
+  pin_policy: once
+
+# Service Settings
+services:
+  worker_processes: 4
+  worker_connections: 1024
+  keepalive_timeout: 65
+  client_max_body_size: 1m
+
+# Security Settings
+security:
+  allowed_hosts:
+    - localhost
+    - 127.0.0.1
+  admin_email: admin@yubikey-network.local
+  rate_limit: 100/minute
+  session_timeout: 3600
+
+# Monitoring Settings
+monitoring:
+  enable_metrics: true
+  metrics_port: 9090
+  prometheus_enabled: true
+  grafana_enabled: true
+
+# Backup Settings
+backup:
+  enabled: true
+  interval: 86400  # 1 day in seconds
+  retention_days: 30
+  encrypt_backups: true
+
+# Logging Settings
+logging:
+  level: INFO
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  file: deployment.log
+  max_size: 10485760  # 10MB
+  backup_count: 5
+
+# Network Settings
+network:
+  port: 8000
+  use_proxy: false
+  trusted_proxies:
+    - 127.0.0.1
+    - 10.0.0.0/8
+
+# Development Settings
+development:
+  debug: false
+  testing: false
+  auto_reload: false 

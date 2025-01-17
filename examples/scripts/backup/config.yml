@@ -1,0 +1,65 @@
+# YubiKey Network Backup Configuration
+
+# Backup Settings
+backup:
+  path: /var/backups/yubikey-network
+  encrypt_backups: true
+  key_file: /etc/yubikey-network/backup.key
+  retention_days: 30
+  key_ids:
+    - yubikey-master
+    - backup-master
+
+# GPG Settings
+gpg_home: ~/.gnupg
+
+# SSL Settings
+ssl:
+  cert_path: /etc/ssl/certs/yubikey-network.crt
+  key_path: /etc/ssl/private/yubikey-network.key
+
+# Path Settings
+paths:
+  config_dir: /etc/yubikey-network
+  data_dir: /var/lib/yubikey-network
+  log_dir: /var/log/yubikey-network
+
+# Database Settings
+database:
+  host: localhost
+  port: 5432
+  name: yubikey_network
+  user: yubikey_admin
+  backup_format: custom
+  compression: 9
+
+# Redis Settings
+redis:
+  host: localhost
+  port: 6379
+  db: 0
+
+# Logging Settings
+logging:
+  level: INFO
+  file: backup.log
+  max_size: 10485760  # 10MB
+  backup_count: 5
+
+# Security Settings
+security:
+  require_encryption: true
+  key_rotation: true
+  rotation_interval: 86400  # 1 day in seconds
+
+# Notification Settings
+notifications:
+  email:
+    enabled: true
+    smtp_server: smtp.example.com
+    from: backup@yubikey-network.local
+    to: admin@yubikey-network.local
+  slack:
+    enabled: true
+    webhook_url: https://hooks.slack.com/services/YOUR/WEBHOOK/URL
+    channel: "#yubikey-backups" 

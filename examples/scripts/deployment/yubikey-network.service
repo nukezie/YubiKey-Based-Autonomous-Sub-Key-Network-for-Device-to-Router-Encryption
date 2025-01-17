@@ -1,0 +1,28 @@
+[Unit]
+Description=YubiKey Network Service
+After=network.target postgresql.service redis-server.service
+Requires=postgresql.service redis-server.service
+
+[Service]
+Type=simple
+User=yubikey-network
+Group=yubikey-network
+WorkingDirectory=/opt/yubikey-network
+Environment=PATH=/opt/yubikey-network/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+ExecStart=/opt/yubikey-network/venv/bin/python -m yubikey_network.server --config /etc/yubikey-network/server.conf
+Restart=always
+RestartSec=5
+StartLimitInterval=60
+StartLimitBurst=3
+
+# Security settings
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=full
+ProtectHome=yes
+CapabilityBoundingSet=
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+
+[Install]
+WantedBy=multi-user.target 

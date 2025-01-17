@@ -1,0 +1,10 @@
+pyyaml>=6.0.0
+psycopg2-binary>=2.9.0
+redis>=4.5.0
+cryptography>=41.0.0
+python-gnupg>=0.5.0
+yubikey-manager>=5.0.0
+prometheus_client>=0.16.0
+requests>=2.28.0
+supervisor>=4.2.0
+typing-extensions>=4.5.0 

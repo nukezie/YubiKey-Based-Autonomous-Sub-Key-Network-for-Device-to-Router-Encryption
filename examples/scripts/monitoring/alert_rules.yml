@@ -1,0 +1,79 @@
+# YubiKey Network Alert Rules
+
+rules:
+  # YubiKey Health Alerts
+  - name: YubiKeyUnhealthy
+    type: threshold
+    metric: yubikey_health
+    comparison: below
+    threshold: 1
+    severity: critical
+    description: "YubiKey device is reporting unhealthy status"
+    
+  - name: HighAuthFailureRate
+    type: threshold
+    metric: auth_failures_rate
+    comparison: above
+    threshold: 10
+    severity: warning
+    description: "High rate of authentication failures detected"
+    
+  - name: KeyRotationOverdue
+    type: threshold
+    metric: key_age
+    comparison: above
+    threshold: 15552000  # 180 days
+    severity: warning
+    description: "Key rotation is overdue"
+    
+  - name: ExcessiveSessions
+    type: threshold
+    metric: active_sessions
+    comparison: above
+    threshold: 1000
+    severity: warning
+    description: "Number of active sessions exceeds threshold"
+    
+  - name: HighOperationLatency
+    type: threshold
+    metric: operation_latency
+    comparison: above
+    threshold: 5.0
+    severity: warning
+    description: "YubiKey operations are experiencing high latency"
+    
+  - name: RepeatedAuthFailures
+    type: threshold
+    metric: auth_failures_consecutive
+    comparison: above
+    threshold: 5
+    severity: critical
+    description: "Multiple consecutive authentication failures detected"
+    
+  - name: YubiKeyTouchRequired
+    type: event
+    metric: touch_policy_violation
+    severity: warning
+    description: "Operation attempted without required physical touch"
+    
+  - name: UnauthorizedKeyAccess
+    type: event
+    metric: unauthorized_access
+    severity: critical
+    description: "Unauthorized attempt to access YubiKey detected"
+    
+  - name: KeyUsageAnomaly
+    type: threshold
+    metric: key_usage_deviation
+    comparison: above
+    threshold: 2.0
+    severity: warning
+    description: "Unusual pattern in key usage detected"
+    
+  - name: SystemResourceConstraint
+    type: threshold
+    metric: system_resources
+    comparison: above
+    threshold: 90
+    severity: warning
+    description: "System resources are running low"

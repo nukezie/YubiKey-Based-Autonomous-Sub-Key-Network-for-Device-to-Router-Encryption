@@ -1,0 +1,57 @@
+# YubiKey Network Monitoring Configuration
+
+# Metrics Collection
+metrics_port: 9090
+collection_interval: 30  # seconds
+
+# YubiKeys to monitor
+yubikeys:
+  - device-yubikey-1
+  - device-yubikey-2
+  - router-yubikey-1
+  - router-yubikey-2
+
+# Alert Configuration
+alert_rules_path: "alert_rules.yml"
+alert_channels:
+  - email
+  - slack
+
+# Email Configuration
+email:
+  smtp_server: "smtp.example.com"
+  from: "monitoring@yubikey-network.local"
+  to: "security@yubikey-network.local"
+
+# Slack Configuration
+slack:
+  webhook_url: "https://hooks.slack.com/services/YOUR/WEBHOOK/URL"
+  channel: "#yubikey-alerts"
+
+# Logging Configuration
+log_level: INFO
+log_file: "monitoring.log"
+log_max_size: 10485760  # 10MB
+log_backup_count: 5
+
+# Thresholds
+thresholds:
+  auth_failure_rate: 10  # alerts if more than 10 failures per minute
+  session_limit: 1000    # maximum concurrent sessions
+  health_check_interval: 60  # seconds between health checks
+
+# Performance Metrics
+performance:
+  latency_buckets:
+    - 0.1
+    - 0.5
+    - 1.0
+    - 2.0
+    - 5.0
+  operation_timeout: 30  # seconds
+
+# Security Settings
+security:
+  min_key_age: 86400     # 1 day in seconds
+  max_key_age: 15552000  # 180 days in seconds
+  required_touch: true   # require physical touch for operations
