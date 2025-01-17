@@ -146,7 +146,7 @@ graph TB
         Docker[Docker Optional]
     end
 
-    subgraph Core Services
+    subgraph CoreServices
         Nginx[Nginx Server]
         Redis[Redis Cache]
         Postgres[PostgreSQL]
@@ -165,11 +165,24 @@ graph TB
     end
 
     OS --> Docker
-    Docker --> Core Services
-    OS --> Core Services
-    Core Services --> Application
-    Security --> Core Services
-    Security --> Application
+    Docker --> Nginx
+    Docker --> Redis
+    Docker --> Postgres
+    OS --> Nginx
+    OS --> Redis
+    OS --> Postgres
+    Nginx --> YNS
+    Redis --> YNS
+    Postgres --> YNS
+    Nginx --> YMS
+    Redis --> YMS
+    Postgres --> YMS
+    SSL --> Nginx
+    FW --> Nginx
+    SEL --> YNS
+    SEL --> YMS
+    Sup --> YNS
+    Sup --> YMS
 ```
 
 ## Authentication Flow
